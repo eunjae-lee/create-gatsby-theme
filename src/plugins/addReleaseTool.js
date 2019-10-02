@@ -1,29 +1,29 @@
 export const addReleaseTool = {
   questions: [
     {
-      type: "confirm",
-      name: "addReleaseTool",
-      message: "Add a release tool?",
-      default: true
-    }
+      type: 'confirm',
+      name: 'shouldAddReleaseTool',
+      message: 'Add a release tool?',
+      default: true,
+    },
   ],
-  run: ({ answers: { addReleaseTool } }) => {
+  run: ({ answers: { shouldAddReleaseTool } }) => {
     return new Promise(resolve => {
       setTimeout(() => {
-        if (addReleaseTool) {
-          console.log("Adding a release tool....");
+        if (shouldAddReleaseTool) {
+          console.log('Adding a release tool....');
         } else {
-          console.log("Skipping a release tool...");
+          console.log('Skipping a release tool...');
         }
         resolve();
       }, 1000);
     });
   },
-  finished: ({ answers: { addReleaseTool } }) => {
-    if (addReleaseTool) {
-      console.log("the release tool has been added!");
+  finished: ({ answers: { shouldAddReleaseTool } }) => {
+    if (shouldAddReleaseTool) {
+      console.log('the release tool has been added!');
     } else {
-      console.log("the release tool is not added.");
+      console.log('the release tool is not added.');
     }
-  }
+  },
 };

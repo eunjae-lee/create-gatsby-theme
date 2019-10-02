@@ -1,25 +1,25 @@
-import path from "path";
-import parseArgs from "arg";
-import { camelCase } from "change-case";
-import { plugins } from "./plugins";
-import { runPlugins } from "./runPlugins";
+import path from 'path';
+import parseArgs from 'arg';
+import { camelCase } from 'change-case';
+import { plugins } from './plugins';
+import { runPlugins } from './runPlugins';
 
 export async function cli(argv) {
-  const firstArg = (argv[2] || "").trim();
-  if (firstArg === "--version") {
+  const firstArg = (argv[2] || '').trim();
+  if (firstArg === '--version') {
     printVersion();
     return;
-  } else if (firstArg === "--help") {
+  } else if (firstArg === '--help') {
     printHelp();
     return;
   }
   const opts = removeDoubleDash(
     parseArgs(
       {
-        "--dir": String,
+        '--dir': String,
 
         // Aliases
-        "-d": "--dir"
+        '-d': '--dir',
       },
       { permissive: false, argv }
     )
@@ -27,18 +27,14 @@ export async function cli(argv) {
   await runPlugins({
     plugins,
     opts: {
-      cwd: path.resolve(opts.dir || ".")
-    }
+      cwd: path.resolve(opts.dir || '.'),
+    },
   });
 }
 
-function printVersion() {
-  console.log("version");
-}
+function printVersion() {}
 
-function printHelp() {
-  console.log("help");
-}
+function printHelp() {}
 
 function removeDoubleDash(opts) {
   return Object.entries(opts).reduce((acc, [key, value]) => {

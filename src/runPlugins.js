@@ -1,14 +1,14 @@
-import inquirer from "inquirer";
-import fs from "fs";
-import path from "path";
+import inquirer from 'inquirer';
+import fs from 'fs';
+import path from 'path';
 
 export async function runPlugins({ plugins, opts: orgOpts }) {
-  const answers = [],
-    results = [];
+  const answers = [];
+  const results = [];
   const { packageName, cwd } = await createPackageDir({ cwd: orgOpts.cwd });
   const opts = {
     packageName,
-    cwd
+    cwd,
   };
   for (const [i, plugin] of plugins.entries()) {
     answers[i] = await inquirer.prompt(plugin.questions || []);
@@ -24,15 +24,15 @@ export async function runPlugins({ plugins, opts: orgOpts }) {
 async function createPackageDir({ cwd }) {
   const { packageName } = await inquirer.prompt([
     {
-      type: "input",
-      name: "packageName",
-      message: "Type your package name?"
-    }
+      type: 'input',
+      name: 'packageName',
+      message: 'Type your package name?',
+    },
   ]);
   const destPath = path.resolve(cwd, packageName);
   fs.mkdirSync(destPath);
   return {
     packageName,
-    cwd: destPath
+    cwd: destPath,
   };
 }
