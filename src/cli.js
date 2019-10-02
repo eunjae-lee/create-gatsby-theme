@@ -3,6 +3,7 @@ import parseArgs from 'arg';
 import { camelCase } from 'change-case';
 import { plugins } from './plugins';
 import { runPlugins } from './runPlugins';
+import { createPackageDir } from './createPackageDir';
 
 export async function cli(argv) {
   const firstArg = (argv[2] || '').trim();
@@ -24,10 +25,15 @@ export async function cli(argv) {
       { permissive: false, argv }
     )
   );
+  const { packageName, cwd } = await createPackageDir({
+    cwd: path.resolve(opts.dir || '.'),
+  });
+
   await runPlugins({
     plugins,
     opts: {
-      cwd: path.resolve(opts.dir || '.'),
+      packageName,
+      cwd,
     },
   });
 }
