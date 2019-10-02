@@ -1,0 +1,24 @@
+{
+  "name": "create-gatsby-theme",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "bin": {
+    "create-gatsby-theme": "./bin/cli.js"
+  },
+  "scripts": {
+    "test:run": "create-gatsby-theme",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Eunjae Lee <karis612@gmail.com> (https://github.com/eunjae-lee)",
+  "license": "MIT",
+  "dependencies": {
+    "arg": "^4.1.1",
+    "chalk": "^2.4.2",
+    "change-case": "^3.1.0",
+    "esm": "^3.2.25",
+    "inquirer": "^7.0.0",
+    "shelljs": "^0.8.3"
+  }
+}
