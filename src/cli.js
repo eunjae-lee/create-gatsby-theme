@@ -51,7 +51,7 @@ function printHelp() {}
 
 function printDone({ packageName }) {
   // eslint-disable-next-line no-console
-  console.log(`cd ${packageName} && yarn example`);
+  console.log(`cd ${packageName} && yarn run example`);
 }
 
 function removeDoubleDash(opts) {
