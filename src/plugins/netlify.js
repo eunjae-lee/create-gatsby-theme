@@ -12,6 +12,6 @@ export const netlify = withHelpers(({ useTemplate }) => ({
   skipIf: ({ answers: { shouldSetupNetlify } }) => !shouldSetupNetlify,
   title: 'Setup Netlify',
   run: ({ opts: { cwd } }) => {
-    useTemplate('netlify/netlify.toml', cwd);
+    useTemplate('netlify/netlify.toml', { dest: cwd });
   },
 }));

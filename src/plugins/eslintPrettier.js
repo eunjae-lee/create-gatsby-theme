@@ -27,8 +27,11 @@ export const eslintPrettier = withHelpers(
       await exec(`yarn add ${dependencies} -D -W`, {
         cwd,
       });
-      useTemplate('eslintPrettier/.eslintrc.js', cwd);
-      useTemplate('eslintPrettier/.prettierrc_', cwd, '.prettierrc');
+      useTemplate('eslintPrettier/.eslintrc.js', { dest: cwd });
+      useTemplate('eslintPrettier/.prettierrc_', {
+        dest: cwd,
+        fileName: '.prettierrc',
+      });
       updatePackageJson(cwd, json => {
         json.scripts.lint = 'eslint .';
         json.scripts['lint:fix'] = 'yarn run lint --fix';

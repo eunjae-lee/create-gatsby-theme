@@ -17,9 +17,11 @@ export async function runPlugins({ plugins, opts }) {
       typeof plugin.skipIf === 'function' &&
       plugin.skipIf({ answers: answers[i], opts });
     if (!skip) {
-      const spinner = ora(plugin.title).start();
+      const spinner = plugin.title ? ora(plugin.title).start() : undefined;
       results[i] = await plugin.run({ answers: answers[i], opts });
-      spinner.succeed();
+      if (spinner) {
+        spinner.succeed();
+      }
     }
   }
   for (const [i, plugin] of plugins.entries()) {

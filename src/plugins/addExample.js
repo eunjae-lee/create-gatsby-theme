@@ -34,10 +34,9 @@ export const addExample = withHelpers(({ exec, useTemplate }) => ({
     //     path: `${process.cwd()}/src/pages`,
     //   },
     // },
-    useTemplate(
-      'addExample/index.js',
-      resolve(cwd, 'examples', 'example', 'src', 'pages')
-    );
+    useTemplate('addExample/index.js', {
+      dest: resolve(cwd, 'examples', 'example', 'src', 'pages'),
+    });
     await exec(
       `yarn workspace ${packageName} add gatsby-source-filesystem gatsby-plugin-page-creator`,
       { cwd }

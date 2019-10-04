@@ -1,12 +1,12 @@
 import { baseTemplate } from './baseTemplate';
 import { addExample } from './addExample';
-// import { addReleaseTool } from './addReleaseTool';
+import { addReleaseScript } from './addReleaseScript';
 import { eslintPrettier } from './eslintPrettier';
 import { netlify } from './netlify';
 
 export const plugins = [
   baseTemplate,
-  // addReleaseTool
+  addReleaseScript,
   eslintPrettier,
   netlify,
   addExample,
