@@ -1,6 +1,7 @@
 import execa from 'execa';
 import { copyFileSync, readFileSync, writeFileSync } from 'fs';
 import { resolve, basename } from 'path';
+import mkdirp from 'mkdirp';
 
 export const withHelpers = fn => {
   return fn({ exec, print, useTemplate, updatePackageJson, gitCommit });
@@ -19,6 +20,7 @@ function print(...args) {
 }
 
 function useTemplate(templateFileName, cwd, destPath = null) {
+  mkdirp.sync(cwd);
   copyFileSync(
     resolve(__dirname, './templates/', templateFileName),
     resolve(cwd, destPath || basename(templateFileName))

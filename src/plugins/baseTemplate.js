@@ -18,8 +18,8 @@ export const baseTemplate = withHelpers(
         json.private = true;
         json.license = 'MIT';
       });
-      useTemplate('.gitignore_', cwd, '.gitignore');
-      useTemplate('.prettierrc', cwd);
+      useTemplate('baseTemplate/.gitignore_', cwd, '.gitignore');
+      useTemplate('baseTemplate/.prettierrc', cwd);
 
       // package
       const packageDir = resolve(cwd, 'packages', packageName);
@@ -30,10 +30,10 @@ export const baseTemplate = withHelpers(
         json.license = 'MIT';
       });
       await exec(`yarn workspace ${packageName} add gatsby --peer`, { cwd });
-      useTemplate('package/index.js', packageDir);
-      useTemplate('package/gatsby-config.js', packageDir);
-      useTemplate('package/gatsby-browser.js', packageDir);
-      useTemplate('package/gatsby-node.js', packageDir);
+      useTemplate('baseTemplate/index.js', packageDir);
+      useTemplate('baseTemplate/gatsby-config.js', packageDir);
+      useTemplate('baseTemplate/gatsby-browser.js', packageDir);
+      useTemplate('baseTemplate/gatsby-node.js', packageDir);
 
       // example
       const exampleDir = resolve(cwd, 'examples', 'example');
