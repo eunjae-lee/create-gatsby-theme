@@ -8,9 +8,15 @@ export async function runPlugins({ plugins, opts }) {
     answers[i] = await inquirer.prompt(plugin.questions || []);
   }
   for (const [i, plugin] of plugins.entries()) {
-    const spinner = ora(plugin.title).start();
-    results[i] = await plugin.run({ answers: answers[i], opts });
-    spinner.succeed();
+    const skip =
+      plugin.skipIf &&
+      typeof plugin.skipIf === 'function' &&
+      plugin.skipIf({ answers: answers[i], opts });
+    if (!skip) {
+      const spinner = ora(plugin.title).start();
+      results[i] = await plugin.run({ answers: answers[i], opts });
+      spinner.succeed();
+    }
   }
   for (const [i, plugin] of plugins.entries()) {
     if (plugin.finished) {
