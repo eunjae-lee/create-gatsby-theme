@@ -1,8 +1,15 @@
 import execa from 'execa';
 
-export function exec(command, { cwd }) {
+export async function exec(command, { cwd, ignoreError }) {
   if (!cwd) {
     throw new Error('You must specify `cwd` options when using `exec`.');
   }
-  return execa.command(command, { cwd });
+  try {
+    return await execa.command(command, { cwd });
+  } catch (e) {
+    if (!ignoreError) {
+      throw e;
+    }
+    return null;
+  }
 }

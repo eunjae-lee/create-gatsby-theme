@@ -1,5 +1,6 @@
+// eslint-disable-next-line import/no-commonjs
 module.exports = {
   plugins: [
-    <next-plugin-placeholder>
+    {{ nextPluginPlaceholder }}
   ],
 };
