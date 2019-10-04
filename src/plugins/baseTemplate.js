@@ -3,9 +3,10 @@ import { resolve } from 'path';
 import mkdirp from 'mkdirp';
 
 export const baseTemplate = withHelpers(
-  ({ exec, print, useTemplate, updatePackageJson }) => ({
-    run: ({ opts: { cwd, packageName } }) => {
-      exec(`npm init -y`, { cwd });
+  ({ exec, useTemplate, updatePackageJson, gitCommit }) => ({
+    title: 'Adding a base template.',
+    run: async ({ opts: { cwd, packageName } }) => {
+      await exec(`npm init -y`, { cwd });
       const initialVersion = '0.0.1';
 
       // root
@@ -23,12 +24,12 @@ export const baseTemplate = withHelpers(
       // package
       const packageDir = resolve(cwd, 'packages', packageName);
       mkdirp.sync(packageDir);
-      exec(`npm init -y`, { cwd: packageDir });
+      await exec(`npm init -y`, { cwd: packageDir });
       updatePackageJson(packageDir, json => {
         json.version = initialVersion;
         json.license = 'MIT';
       });
-      exec(`yarn workspace ${packageName} add gatsby --peer`, { cwd });
+      await exec(`yarn workspace ${packageName} add gatsby --peer`, { cwd });
       useTemplate('package/index.js', packageDir);
       useTemplate('package/gatsby-config.js', packageDir);
       useTemplate('package/gatsby-browser.js', packageDir);
@@ -37,7 +38,7 @@ export const baseTemplate = withHelpers(
       // example
       const exampleDir = resolve(cwd, 'examples', 'example');
       mkdirp.sync(exampleDir);
-      exec(`npm init -y`, { cwd: exampleDir });
+      await exec(`npm init -y`, { cwd: exampleDir });
       updatePackageJson(exampleDir, json => {
         json.private = true;
         json.scripts.develop = 'gatsby develop';
@@ -49,12 +50,12 @@ export const baseTemplate = withHelpers(
         'react',
         'react-dom',
       ].join(' ');
-      exec(`yarn workspace example add ${packages}`, {
+      await exec(`yarn workspace example add ${packages}`, {
         cwd,
       });
 
       // finishing
-      exec(`git init`, { cwd });
+      await gitCommit(`chore: initial commit`, cwd);
     },
   })
 );

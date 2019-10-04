@@ -5,6 +5,7 @@ import { plugins } from './plugins';
 import { runPlugins } from './runPlugins';
 import { askPackageName } from './askPackageName';
 import { createPackageDir } from './createPackageDir';
+import execa from 'execa';
 
 export async function cli(argv) {
   const firstArg = (argv[2] || '').trim();
@@ -31,6 +32,7 @@ export async function cli(argv) {
     cwd: path.resolve(opts.dir || '.'),
     packageName,
   });
+  await execa.command(`git init`, { cwd });
 
   await runPlugins({
     plugins,

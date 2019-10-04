@@ -1,19 +1,16 @@
-import { exec as execOrg } from 'shelljs';
+import execa from 'execa';
 import { copyFileSync, readFileSync, writeFileSync } from 'fs';
 import { resolve, basename } from 'path';
 
 export const withHelpers = fn => {
-  return fn({ exec, print, useTemplate, updatePackageJson });
+  return fn({ exec, print, useTemplate, updatePackageJson, gitCommit });
 };
 
-function exec(command, args) {
-  if (!args.cwd) {
+function exec(command, { cwd }) {
+  if (!cwd) {
     throw new Error('You must specify `cwd` options when using `exec`.');
   }
-  return execOrg(command, {
-    silent: true,
-    ...args,
-  });
+  return execa.command(command, { cwd });
 }
 
 function print(...args) {
@@ -33,4 +30,9 @@ function updatePackageJson(cwd, fn) {
   const json = JSON.parse(readFileSync(path).toString());
   fn(json);
   writeFileSync(path, JSON.stringify(json, null, 2));
+}
+
+async function gitCommit(message, cwd) {
+  await execa('git', ['add', '.'], { cwd });
+  await execa('git', ['commit', '-m', message], { cwd });
 }

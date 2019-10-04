@@ -1,4 +1,5 @@
 import inquirer from 'inquirer';
+import ora from 'ora';
 
 export async function runPlugins({ plugins, opts }) {
   const answers = [];
@@ -7,7 +8,9 @@ export async function runPlugins({ plugins, opts }) {
     answers[i] = await inquirer.prompt(plugin.questions || []);
   }
   for (const [i, plugin] of plugins.entries()) {
+    const spinner = ora(plugin.title).start();
     results[i] = await plugin.run({ answers: answers[i], opts });
+    spinner.succeed();
   }
   for (const [i, plugin] of plugins.entries()) {
     if (plugin.finished) {
