@@ -27,7 +27,10 @@ export const eslintPrettier = withHelpers(
       await exec(`yarn add ${dependencies} -D -W`, {
         cwd,
       });
-      useTemplate('eslintPrettier/.eslintrc.js', { dest: cwd });
+      useTemplate('eslintPrettier/.eslintrc.js_', {
+        dest: cwd,
+        fileName: '.eslintrc.js',
+      });
       useTemplate('eslintPrettier/.prettierrc_', {
         dest: cwd,
         fileName: '.prettierrc',

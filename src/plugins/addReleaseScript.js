@@ -1,6 +1,6 @@
 import { withHelpers } from '../withHelpers';
 
-export const addReleaseScript = withHelpers(({ exec, useTemplate }) => ({
+export const addReleaseScript = withHelpers(({ useTemplate }) => ({
   questions: [
     {
       type: 'confirm',

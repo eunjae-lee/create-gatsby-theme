@@ -1,6 +1,5 @@
 import { withHelpers } from '../withHelpers';
 import { resolve } from 'path';
-import { writeFileSync } from 'fs';
 
 export const addExample = withHelpers(({ exec, useTemplate }) => ({
   questions: [
@@ -20,7 +19,6 @@ export const addExample = withHelpers(({ exec, useTemplate }) => ({
     //   packageName,
     //   'gatsby-config.js'
     // );
-    // TODO: fix config
     // {
     //   resolve: `gatsby-source-filesystem`,
     //   options: {
