@@ -7,6 +7,10 @@ export async function runPlugins({ plugins, opts }) {
   for (const [i, plugin] of plugins.entries()) {
     answers[i] = await inquirer.prompt(plugin.questions || []);
   }
+
+  // eslint-disable-next-line no-console
+  console.log('');
+
   for (const [i, plugin] of plugins.entries()) {
     const skip =
       plugin.skipIf &&
