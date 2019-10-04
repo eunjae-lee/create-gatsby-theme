@@ -3,6 +3,7 @@ import parseArgs from 'arg';
 import { camelCase } from 'change-case';
 import { plugins } from './plugins';
 import { runPlugins } from './runPlugins';
+import { askPackageName } from './askPackageName';
 import { createPackageDir } from './createPackageDir';
 
 export async function cli(argv) {
@@ -25,8 +26,10 @@ export async function cli(argv) {
       { permissive: false, argv }
     )
   );
-  const { packageName, cwd } = await createPackageDir({
+  const packageName = await askPackageName();
+  const cwd = createPackageDir({
     cwd: path.resolve(opts.dir || '.'),
+    packageName,
   });
 
   await runPlugins({
@@ -36,11 +39,18 @@ export async function cli(argv) {
       cwd,
     },
   });
+
+  printDone({ packageName });
 }
 
 function printVersion() {}
 
 function printHelp() {}
+
+function printDone({ packageName }) {
+  // eslint-disable-next-line no-console
+  console.log(`cd ${packageName} && yarn example`);
+}
 
 function removeDoubleDash(opts) {
   return Object.entries(opts).reduce((acc, [key, value]) => {
