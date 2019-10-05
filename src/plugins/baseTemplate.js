@@ -4,7 +4,7 @@ import mkdirp from 'mkdirp';
 
 export const baseTemplate = withHelpers(
   ({ exec, useTemplate, updatePackageJson, gitCommit }) => ({
-    title: 'Adding a base template',
+    title: 'Creating a project and installing dependencies',
     run: async ({ opts: { cwd, packageName } }) => {
       await exec(`npm init -y`, { cwd });
       const initialVersion = '0.0.1';
