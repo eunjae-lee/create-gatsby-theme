@@ -18,20 +18,9 @@ export const addExample = withHelpers(
       const packageDir = resolve(cwd, 'packages', packageName);
       const gatsbyConfigPath = resolve(packageDir, 'gatsby-config.js');
 
-      const plugins = `{
-      resolve: 'gatsby-source-filesystem',
-      options: {
-        name: 'pages',
-        path: \`${process.cwd()}/src/pages\`,
-      },
-    },
-    {
-      resolve: 'gatsby-plugin-page-creator',
-      options: {
-        path: \`${process.cwd()}/src/pages\`,
-      },
-    },
-    {{ nextPluginPlaceholder }}`;
+      const plugins = readFileSync(
+        resolve(__dirname, '../templates/addExample/plugins.js')
+      ).toString();
       writeFileSync(
         gatsbyConfigPath,
         evalTemplate(readFileSync(gatsbyConfigPath).toString(), {
