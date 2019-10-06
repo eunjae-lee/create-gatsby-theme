@@ -1,4 +1,3 @@
 [build]
-  base = "project/"
-  publish = "project/examples/example/public"
+  publish = "examples/example/public"
   command = "yarn run example:build"
