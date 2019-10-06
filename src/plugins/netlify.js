@@ -1,6 +1,6 @@
-import { withHelpers } from '../withHelpers';
+import { useTemplate } from '../utils';
 
-export const netlify = withHelpers(({ useTemplate }) => ({
+export const netlify = {
   questions: [
     {
       type: 'confirm',
@@ -14,4 +14,4 @@ export const netlify = withHelpers(({ useTemplate }) => ({
   run: ({ opts: { cwd } }) => {
     useTemplate('netlify/netlify.toml', { dest: cwd });
   },
-}));
+};

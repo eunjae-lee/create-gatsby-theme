@@ -1,6 +1,6 @@
-import { withHelpers } from '../withHelpers';
+import { useTemplate } from '../utils';
 
-export const addReleaseScript = withHelpers(({ useTemplate }) => ({
+export const addReleaseScript = {
   questions: [
     {
       type: 'confirm',
@@ -17,4 +17,4 @@ export const addReleaseScript = withHelpers(({ useTemplate }) => ({
       data: { packageName },
     });
   },
-}));
+};
