@@ -15,6 +15,7 @@ export const baseTemplate = withHelpers(
         json.workspaces = ['packages/*', 'examples/*'];
         json.scripts.example = 'yarn workspace example develop';
         json.scripts['example:build'] = 'yarn workspace example build';
+        json.scripts.format = `prettier --write "**/*.{js,jsx,json,md}"`;
         json.private = true;
         json.license = 'MIT';
       });
@@ -22,7 +23,8 @@ export const baseTemplate = withHelpers(
         dest: cwd,
         fileName: '.gitignore',
       });
-      useTemplate('baseTemplate/.prettierrc', { dest: cwd });
+      useTemplate('baseTemplate/.prettierrc_', { dest: cwd });
+      await exec(`yarn add prettier -D -W`, { cwd });
 
       // package
       const packageDir = resolve(cwd, 'packages', packageName);
