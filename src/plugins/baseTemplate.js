@@ -1,9 +1,10 @@
 import { withHelpers } from '../withHelpers';
 import { resolve } from 'path';
 import mkdirp from 'mkdirp';
+import chalk from 'chalk';
 
 export const baseTemplate = withHelpers(
-  ({ execAsync, useTemplate, updatePackageJson, gitCommitAsync }) => ({
+  ({ execAsync, useTemplate, updatePackageJson, print }) => ({
     title: 'Creating a project and installing dependencies',
     run: async ({ opts: { cwd, packageName } }) => {
       await execAsync(`npm init -y`, { cwd });
@@ -60,9 +61,6 @@ export const baseTemplate = withHelpers(
       await execAsync(`yarn workspace example add ${packages}`, {
         cwd,
       });
-
-      // finishing
-      await gitCommitAsync(`chore: initial commit`, cwd);
     },
   })
 );

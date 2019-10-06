@@ -11,7 +11,7 @@ export const addReleaseScript = withHelpers(({ useTemplate }) => ({
   ],
   skipIf: ({ answers: { shouldAddReleaseScript } }) => !shouldAddReleaseScript,
   title: 'Setup a release script',
-  run: ({ opts: { cwd, packageName } }) => {
+  run: async ({ opts: { cwd, packageName } }) => {
     useTemplate('addReleaseScript/ship.config.js', {
       dest: cwd,
       data: { packageName },

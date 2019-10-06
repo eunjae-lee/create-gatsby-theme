@@ -2,8 +2,8 @@ import { withHelpers } from '../withHelpers';
 import { resolve } from 'path';
 import { writeFileSync, readFileSync } from 'fs';
 
-export const cleanUpGatsbyConfig = withHelpers(
-  ({ evalTemplate, execAsync }) => ({
+export const gitCommit = withHelpers(
+  ({ evalTemplate, execAsync, gitCommitAsync }) => ({
     run: async ({ opts: { cwd, packageName } }) => {
       const gatsbyConfigPath = resolve(
         cwd,
@@ -12,14 +12,21 @@ export const cleanUpGatsbyConfig = withHelpers(
         'gatsby-config.js'
       );
 
+      // remove placeholder
+      const gatsbyConfig = readFileSync(gatsbyConfigPath).toString();
       writeFileSync(
         gatsbyConfigPath,
-        evalTemplate(readFileSync(gatsbyConfigPath).toString(), {
+        evalTemplate(gatsbyConfig, {
           nextPluginPlaceholder: '',
         })
       );
-
+      // run prettier
       await execAsync(`npx prettier --write ${gatsbyConfigPath}`, { cwd });
+      // git commit
+      await gitCommitAsync('chore: initial commit', cwd);
+
+      // put the placeholder back for the next step
+      writeFileSync(gatsbyConfigPath, gatsbyConfig);
     },
   })
 );

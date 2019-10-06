@@ -5,7 +5,7 @@ export const netlify = withHelpers(({ useTemplate }) => ({
     {
       type: 'confirm',
       name: 'shouldSetupNetlify',
-      message: 'Setup Netlify for example site?',
+      message: 'Setup Netlify for a demo site?',
       default: true,
     },
   ],

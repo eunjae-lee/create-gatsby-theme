@@ -8,12 +8,12 @@ export const addExample = withHelpers(
       {
         type: 'confirm',
         name: 'shouldAddExample',
-        message: 'Add an example?',
+        message: 'Add some sample code?',
         default: true,
       },
     ],
     skipIf: ({ answers: { shouldAddExample } }) => !shouldAddExample,
-    title: 'Adding an example to theme and example',
+    title: 'Adding sample code',
     run: async ({ opts: { cwd, packageName } }) => {
       const packageDir = resolve(cwd, 'packages', packageName);
       const gatsbyConfigPath = resolve(packageDir, 'gatsby-config.js');

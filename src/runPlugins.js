@@ -24,6 +24,10 @@ export async function runPlugins({ plugins, opts }) {
       }
     }
   }
+
+  // eslint-disable-next-line no-console
+  console.log('');
+
   for (const [i, plugin] of plugins.entries()) {
     if (plugin.finished) {
       await plugin.finished({ answers: answers[i], result: results[i], opts });
