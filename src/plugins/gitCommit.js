@@ -23,6 +23,7 @@ export const gitCommit = {
     await execAsync(`npx prettier --write ${gatsbyConfigPath}`, { cwd });
     // git commit
     await gitCommitAsync('chore: initial commit', cwd);
+    await execAsync('git tag v0.0.0', { cwd });
 
     // put the placeholder back for the next step
     writeFileSync(gatsbyConfigPath, gatsbyConfig);

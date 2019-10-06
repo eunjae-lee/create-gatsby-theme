@@ -7,7 +7,7 @@ export const baseTemplate = {
   title: 'Creating a project and installing dependencies',
   run: async ({ opts: { cwd, packageName } }) => {
     await execAsync(`npm init -y`, { cwd });
-    const initialVersion = '0.0.1';
+    const initialVersion = '0.0.0';
 
     // root
     updatePackageJson(cwd, json => {
@@ -60,5 +60,18 @@ export const baseTemplate = {
     await execAsync(`yarn workspace example add ${packages}`, {
       cwd,
     });
+  },
+  finished: ({ opts: { cwd, packageName } }) => {
+    const projectPath = cwd.startsWith(resolve(__dirname))
+      ? cwd.slice(resolve(__dirname).length + 1)
+      : packageName;
+
+    print(chalk.green.bold('🎉  FINISHED!'));
+    print('');
+    print(
+      `${chalk.green('●')} Try the following command to run your example site.`
+    );
+    print(`    ${chalk.gray(`cd ${projectPath} && yarn run example`)}`);
+    print('');
   },
 };

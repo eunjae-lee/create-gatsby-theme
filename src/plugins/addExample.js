@@ -1,6 +1,7 @@
 import { resolve } from 'path';
 import { writeFileSync, readFileSync } from 'fs';
-import { execAsync, evalTemplate, useTemplate } from '../utils';
+import chalk from 'chalk';
+import { execAsync, evalTemplate, useTemplate, print } from '../utils';
 
 export const addExample = {
   questions: [
@@ -33,5 +34,14 @@ export const addExample = {
       `yarn workspace ${packageName} add gatsby-source-filesystem gatsby-plugin-page-creator`,
       { cwd }
     );
+  },
+  finished: () => {
+    print(
+      `${chalk.green(
+        '●'
+      )} Some sample code has been added, but not committed into the repository.`
+    );
+    print('  You can run the following command to get rid of them.');
+    print(`    ${chalk.gray('git reset --hard HEAD && git clean -fd')}`);
   },
 };
