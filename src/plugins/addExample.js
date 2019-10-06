@@ -3,7 +3,7 @@ import { resolve } from 'path';
 import { writeFileSync, readFileSync } from 'fs';
 
 export const addExample = withHelpers(
-  ({ exec, evalTemplate, useTemplate }) => ({
+  ({ execAsync, evalTemplate, useTemplate }) => ({
     questions: [
       {
         type: 'confirm',
@@ -41,7 +41,7 @@ export const addExample = withHelpers(
       useTemplate('addExample/index.js', {
         dest: resolve(cwd, 'examples', 'example', 'src', 'pages'),
       });
-      await exec(
+      await execAsync(
         `yarn workspace ${packageName} add gatsby-source-filesystem gatsby-plugin-page-creator`,
         { cwd }
       );

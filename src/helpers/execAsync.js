@@ -1,6 +1,6 @@
 import execa from 'execa';
 
-export async function exec(command, { cwd, ignoreError }) {
+export async function execAsync(command, { cwd, ignoreError }) {
   if (!cwd) {
     throw new Error('You must specify `cwd` options when using `exec`.');
   }

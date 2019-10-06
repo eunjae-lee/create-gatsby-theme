@@ -3,10 +3,10 @@ import { resolve } from 'path';
 import mkdirp from 'mkdirp';
 
 export const baseTemplate = withHelpers(
-  ({ exec, useTemplate, updatePackageJson, gitCommit }) => ({
+  ({ execAsync, useTemplate, updatePackageJson, gitCommitAsync }) => ({
     title: 'Creating a project and installing dependencies',
     run: async ({ opts: { cwd, packageName } }) => {
-      await exec(`npm init -y`, { cwd });
+      await execAsync(`npm init -y`, { cwd });
       const initialVersion = '0.0.1';
 
       // root
@@ -24,17 +24,19 @@ export const baseTemplate = withHelpers(
         fileName: '.gitignore',
       });
       useTemplate('baseTemplate/.prettierrc_', { dest: cwd });
-      await exec(`yarn add prettier -D -W`, { cwd });
+      await execAsync(`yarn add prettier -D -W`, { cwd });
 
       // package
       const packageDir = resolve(cwd, 'packages', packageName);
       mkdirp.sync(packageDir);
-      await exec(`npm init -y`, { cwd: packageDir });
+      await execAsync(`npm init -y`, { cwd: packageDir });
       updatePackageJson(packageDir, json => {
         json.version = initialVersion;
         json.license = 'MIT';
       });
-      await exec(`yarn workspace ${packageName} add gatsby --peer`, { cwd });
+      await execAsync(`yarn workspace ${packageName} add gatsby --peer`, {
+        cwd,
+      });
       useTemplate('baseTemplate/index.js', { dest: packageDir });
       useTemplate('baseTemplate/gatsby-config.js', { dest: packageDir });
       useTemplate('baseTemplate/gatsby-browser.js', { dest: packageDir });
@@ -43,7 +45,7 @@ export const baseTemplate = withHelpers(
       // example
       const exampleDir = resolve(cwd, 'examples', 'example');
       mkdirp.sync(exampleDir);
-      await exec(`npm init -y`, { cwd: exampleDir });
+      await execAsync(`npm init -y`, { cwd: exampleDir });
       updatePackageJson(exampleDir, json => {
         json.private = true;
         json.scripts.develop = 'gatsby develop';
@@ -55,12 +57,12 @@ export const baseTemplate = withHelpers(
         'react',
         'react-dom',
       ].join(' ');
-      await exec(`yarn workspace example add ${packages}`, {
+      await execAsync(`yarn workspace example add ${packages}`, {
         cwd,
       });
 
       // finishing
-      await gitCommit(`chore: initial commit`, cwd);
+      await gitCommitAsync(`chore: initial commit`, cwd);
     },
   })
 );

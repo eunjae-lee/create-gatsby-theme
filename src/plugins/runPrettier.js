@@ -1,7 +1,7 @@
 import { withHelpers } from '../withHelpers';
 
-export const runPrettier = withHelpers(({ exec }) => ({
+export const runPrettier = withHelpers(({ execAsync }) => ({
   run: async ({ opts: { cwd } }) => {
-    await exec(`yarn run format`, { cwd });
+    await execAsync(`yarn run format`, { cwd });
   },
 }));
