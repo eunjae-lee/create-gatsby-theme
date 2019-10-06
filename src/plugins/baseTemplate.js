@@ -23,7 +23,10 @@ export const baseTemplate = {
       dest: cwd,
       fileName: '.gitignore',
     });
-    useTemplate('baseTemplate/.prettierrc_', { dest: cwd });
+    useTemplate('baseTemplate/.prettierrc_', {
+      dest: cwd,
+      fileName: '.prettierrc',
+    });
     await execAsync(`yarn add prettier -D -W`, { cwd });
 
     // package
