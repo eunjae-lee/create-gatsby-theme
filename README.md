@@ -16,14 +16,6 @@ npx create-gatsby-theme
 
 ## Usage
 
-### Sample Code
-
-If you said "Yes" to `Adding sample code`, there should be minimum code to see how it's done. They're not committed into your repository. You can get rid of them by running the following command:
-
-```bash
-git reset --hard HEAD && git clean -fd
-```
-
 ### Running example site
 
 The following command runs the example site.
@@ -32,6 +24,14 @@ You can work on both theme and example site and will check it live on the runnin
 
 ```bash
 yarn run example
+```
+
+### Sample Code
+
+If you said "Yes" to `Adding sample code`, there should be minimum code to see how it's done. They're not committed into your repository. You can get rid of them by running the following command:
+
+```bash
+git reset --hard HEAD && git clean -fd
 ```
 
 ### Release your theme
