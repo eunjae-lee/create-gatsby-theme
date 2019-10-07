@@ -16,6 +16,7 @@ export const baseTemplate = {
       json.scripts.example = 'yarn workspace example develop';
       json.scripts['example:build'] = 'yarn workspace example build';
       json.scripts.format = `prettier --write "**/*.{js,jsx,json,md}"`;
+      json.scripts.test = `echo "Error: no test specified"`;
       json.private = true;
       json.license = 'MIT';
     });
@@ -69,7 +70,7 @@ export const baseTemplate = {
       ? cwd.slice(resolve(__dirname).length + 1)
       : packageName;
 
-    print(chalk.green.bold('🎉  FINISHED!'));
+    print(chalk.magenta.bold('🎉  FINISHED!'));
     print('');
     print(
       `${chalk.green('●')} Try the following command to run your example site.`

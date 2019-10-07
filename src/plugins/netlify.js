@@ -17,7 +17,7 @@ export const netlify = {
   },
   finished: () => {
     print(`${chalk.green('●')} \`netlify.toml\` has been added.`);
-    print('  Go to https://www.netlify.com and import this repository.');
+    print('  Import this repository at https://www.netlify.com');
     print('');
   },
 };
