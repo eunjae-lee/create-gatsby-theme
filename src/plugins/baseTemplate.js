@@ -17,6 +17,7 @@ export const baseTemplate = {
       json.scripts['example:build'] = 'yarn workspace example build';
       json.scripts.format = `prettier --write "**/*.{js,jsx,json,md}"`;
       json.scripts.test = `echo "Error: no test specified"`;
+      json.scripts.build = `echo "Nothing to build"`;
       json.private = true;
       json.license = 'MIT';
     });
@@ -27,6 +28,12 @@ export const baseTemplate = {
     useTemplate('baseTemplate/.prettierrc_', {
       dest: cwd,
       fileName: '.prettierrc',
+    });
+    useTemplate('baseTemplate/README.md', {
+      dest: cwd,
+      data: {
+        packageName,
+      },
     });
     await execAsync(`yarn add prettier -D -W`, { cwd });
 

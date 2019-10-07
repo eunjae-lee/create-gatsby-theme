@@ -16,6 +16,9 @@ module.exports = {
     fs.writeFileSync(packageJsonPath, JSON.stringify(json, null, 2));
 
     // update dependency in the example
-    exec(`yarn workspace example add <%= packageName %>@${version}`);
+    exec(`yarn workspace example add {{ packageName }}@${version}`);
+  },
+  beforePublish: ({ exec }) => {
+    exec('cp README.md packages/{{ packageName }}/');
   },
 };

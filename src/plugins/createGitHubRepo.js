@@ -14,7 +14,7 @@ export const createGitHubRepo = {
   title: 'Create a repository on GitHub',
   run: async ({ opts: { cwd } }) => {
     const hubExists =
-      (await execAsync(`huddb --version`, {
+      (await execAsync(`hub --version`, {
         cwd,
         ignoreError: true,
       })) !== null;
