@@ -1,0 +1,98 @@
+# Javascript Node CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+#
+
+aliases:
+  - &install_yarn_version
+    name: Install specific Yarn version
+    command: |
+      curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.16.0
+      echo 'export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"' >> $BASH_ENV
+
+  - &restore_yarn_cache
+    name: Restore Yarn cache
+    keys:
+      - yarn-{{ .Branch }}-packages-{{ checksum "yarn.lock" }}
+
+  - &save_yarn_cache
+    name: Save Yarn cache
+    key: yarn-{{ .Branch }}-packages-{{ checksum "yarn.lock" }}
+    paths:
+      - ~/.cache/yarn
+
+  - &run_yarn_install
+    name: Install dependencies
+    command: yarn install
+
+defaults: &defaults
+  working_directory: ~/repo
+  docker:
+    - image: circleci/node:8.16.0
+
+version: 2
+jobs:
+  test:
+    <<: *defaults
+    steps:
+      - checkout
+      - run: *install_yarn_version
+      - restore_cache: *restore_yarn_cache
+      - run: *run_yarn_install
+      - save_cache: *save_yarn_cache
+      - run:
+          name: Lint
+          command: yarn lint
+      - run:
+          name: Unit Tests
+          command: yarn test
+  prepare_release:
+    <<: *defaults
+    steps:
+      - checkout
+      - run: *install_yarn_version
+      - restore_cache: *restore_yarn_cache
+      - run: *run_yarn_install
+      - save_cache: *save_yarn_cache
+      - run:
+          name: Install hub
+          command: |
+            sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
+            /home/linuxbrew/.linuxbrew/bin/brew shellenv >> $BASH_ENV
+            eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+            brew install hub
+      - run:
+          name: Prepare release
+          command: |
+            git config --global user.email "karis612@gmail.com"
+            git config --global user.name "Eunjae Lee"
+            yarn release:prepare --yes --no-browse
+  release_if_needed:
+    <<: *defaults
+    steps:
+      - checkout
+      - run: *install_yarn_version
+      - restore_cache: *restore_yarn_cache
+      - run: *run_yarn_install
+      - save_cache: *save_yarn_cache
+      - run:
+          name: Try to Release
+          command: yarn release:trigger
+workflows:
+  version: 2
+  ci:
+    jobs:
+      - test
+      - release_if_needed:
+          requires:
+            - test
+  prepare_release_every_tuesday:
+    triggers:
+      - schedule:
+          cron: '0 9 * * 2'
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - prepare_release

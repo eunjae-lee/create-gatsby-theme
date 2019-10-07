@@ -1,0 +1,51 @@
+{
+  "name": "create-gatsby-theme",
+  "version": "0.0.0",
+  "main": "index.js",
+  "bin": {
+    "create-gatsby-theme": "./bin/cli.js"
+  },
+  "scripts": {
+    "test:run": "create-gatsby-theme",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint .",
+    "lint:fix": "npm run lint -- --fix",
+    "release:prepare": "shipjs prepare",
+    "release:trigger": "shipjs trigger"
+  },
+  "keywords": [],
+  "author": "Eunjae Lee <karis612@gmail.com> (https://github.com/eunjae-lee)",
+  "license": "MIT",
+  "dependencies": {
+    "arg": "^4.1.1",
+    "chalk": "^2.4.2",
+    "change-case": "^3.1.0",
+    "esm": "^3.2.25",
+    "execa": "^2.0.5",
+    "inquirer": "^7.0.0",
+    "mkdirp": "^0.5.1",
+    "npm-name": "^5.5.0",
+    "ora": "^4.0.2",
+    "validate-npm-package-name": "^3.0.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.3",
+    "eslint": "^6.5.1",
+    "eslint-config-algolia": "^14.0.1",
+    "eslint-config-prettier": "^6.3.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jest": "^22.17.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "prettier": "^1.18.2",
+    "shipjs": "^0.6.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eunjae-lee/create-gatsby-theme.git"
+  },
+  "bugs": {
+    "url": "https://github.com/eunjae-lee/create-gatsby-theme/issues"
+  },
+  "homepage": "https://github.com/eunjae-lee/create-gatsby-theme#readme",
+  "description": "Create a gatsby theme with pre-built template"
+}
