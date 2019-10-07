@@ -12,7 +12,7 @@ It comes with an example and you can build your theme while testing it on the ex
 npx create-gatsby-theme
 ```
 
-![Preview](./assets/screenshot-short.png)
+<img src="./assets/screenshot-short.png" width="500px" />
 
 ## Usage
 
