@@ -12,6 +12,8 @@ It comes with an example and you can build your theme while testing it on the ex
 npx create-gatsby-theme
 ```
 
+![Preview](./assets/screenshot-short.png)
+
 ## Plugins
 
 `create-gatsby-theme` will ask you several questions and accordingly it injects configurations/features to your repository.
